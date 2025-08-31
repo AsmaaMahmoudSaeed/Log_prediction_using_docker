@@ -1,21 +1,4 @@
 
-       #1) __file__:
-       # __file__ is a special variable in Python that holds the path to the current Python script file (e.g., /path/to/app/model.py or C:\path\to\app\model.py).
-       #In your case, this code is in app/model.py, so __file__ refers to the path of model.py.
-
-
-       #2)os.path.dirname(__file__):
-       #This function returns the directory containing the script file.
-       #If model.py is located at /path/to/well-log-app/app/model.py, then os.path.dirname(__file__) returns /path/to/well-log-app/app.
-
-
-      #3)  os.path.join(os.path.dirname(__file__), '..'):
-     #os.path.join combines path components using the appropriate separator (/ for Linux, \ for Windows).
-     #The .. means "go up one directory level."
-     #Starting from /path/to/well-log-app/app:
-
-     #First .. moves to /path/to/well-log-app.
-      #Second .. moves to /path/to.
 import pickle
 import joblib
 import pandas as pd
