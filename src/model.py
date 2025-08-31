@@ -1,24 +1,3 @@
-import pickle
-import joblib
-import pandas as pd
-import os
-import logging
-from typing import Optional, Any
-import streamlit as st
-
-# Configure logging
-logger = logging.getLogger(__name__)
-
-@st.cache_resource
-def load_model() -> Optional[Any]:
-    """
-    Load the machine learning model from the models directory using a dynamic path.
-
-    Returns:
-        Optional[Any]: Loaded model object or None if loading fails.
-    """
-    try:
-        # Construct path to cmodel.pkl relative to the project root
 
        #1) __file__:
        # __file__ is a special variable in Python that holds the path to the current Python script file (e.g., /path/to/app/model.py or C:\path\to\app\model.py).
@@ -37,29 +16,14 @@ def load_model() -> Optional[Any]:
 
      #First .. moves to /path/to/well-log-app.
       #Second .. moves to /path/to.
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        model_path = os.path.join(project_root, 'models', 'cmodel.pkl')
+import pickle
+import joblib
+import pandas as pd
+import logging
+from typing import Optional, Any
 
-        if not os.path.exists(model_path) or os.path.getsize(model_path) == 0:
-            logger.error(f"Model file '{model_path}' not found or is empty.")
-            raise FileNotFoundError(f"Model file '{model_path}' not found or is empty.")
-
-        # Try loading with pickle
-        try:
-            with open(model_path, 'rb') as file:
-                model = pickle.load(file)
-            logger.info(f"Model loaded successfully with pickle from {model_path}.")
-            return model
-        except (pickle.UnpicklingError, AttributeError) as e:
-            logger.warning(f"Pickle loading failed: {str(e)}. Falling back to joblib.")
-            # Fallback to joblib
-            model = joblib.load(model_path)
-            logger.info(f"Model loaded successfully with joblib from {model_path}.")
-            return model
-
-    except Exception as e:
-        logger.error(f"Error loading model from {model_path}: {str(e)}")
-        return None
+# Configure logging
+logger = logging.getLogger(__name__)
 
 def predict_dt(model: Any, input_data: pd.DataFrame) -> float:
     """

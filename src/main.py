@@ -1,8 +1,12 @@
 import streamlit as st
 import pandas as pd
 import logging
-from typing import Optional
-from model import load_model, predict_dt
+import os
+import gdown
+import pickle
+import joblib
+from typing import Optional, Any
+from model import predict_dt
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -22,6 +26,61 @@ VALID_RANGES = {
     "NPHI": (0.0, 1.0),  # Typical neutron porosity range
     "PEF": (0.0, 10.0)   # Typical photoelectric factor range
 }
+
+@st.cache_resource
+def load_model() -> Optional[Any]:
+    """
+    Load the machine learning model, downloading from Google Drive if not present.
+
+    Returns:
+        Optional[Any]: Loaded model object or None if loading fails.
+    """
+    try:
+        # Construct path to cmodel.pkl in the models directory
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        model_dir = os.path.join(project_root, 'models')
+        model_path = os.path.join(model_dir, 'cmodel.pkl')
+
+        # Ensure models directory exists
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)
+            logger.info(f"Created models directory at {model_dir}.")
+
+        # Download model from Google Drive if not present
+        file_id = '1ySNUKWRAhq27DCdnt1t4-fM22XkIFeJ5'
+        url = f'https://drive.google.com/uc?id={file_id}'
+        if not os.path.exists(model_path):
+            st.write("Downloading model from Google Drive...")
+            logger.info(f"Downloading model from {url} to {model_path}")
+            gdown.download(url, model_path, quiet=False)
+        else:
+            st.write("Using cached model file.")
+            logger.info(f"Using cached model at {model_path}")
+
+        # Verify file exists and is not empty
+        if not os.path.exists(model_path) or os.path.getsize(model_path) == 0:
+            logger.error(f"Model file '{model_path}' not found or is empty.")
+            raise FileNotFoundError(f"Model file '{model_path}' not found or is empty.")
+
+        # Try loading with pickle
+        try:
+            with open(model_path, 'rb') as file:
+                model = pickle.load(file)
+            logger.info(f"Model loaded successfully with pickle from {model_path}.")
+            st.success("Model loaded successfully with pickle.")
+            return model
+        except (pickle.UnpicklingError, AttributeError) as e:
+            logger.warning(f"Pickle loading failed: {str(e)}. Falling back to joblib.")
+            # Fallback to joblib
+            model = joblib.load(model_path)
+            logger.info(f"Model loaded successfully with joblib from {model_path}.")
+            st.success("Model loaded successfully with joblib.")
+            return model
+
+    except Exception as e:
+        logger.error(f"Error loading model from {model_path}: {str(e)}")
+        st.error(f"Error loading model: {str(e)}")
+        return None
 
 def validate_input(feature: str, value: float) -> bool:
     """Validate if the input value is within the acceptable range."""
@@ -84,7 +143,7 @@ def main():
     # Load the model
     model = load_model()
     if model is None:
-        st.error("Failed to load the model. Please check the logs and ensure 'cmodel.pkl' is available in the 'models' directory.")
+        st.error("Failed to load the model. Please check the logs and ensure 'cmodel.pkl' is downloadable.")
         logger.error("Model loading failed, stopping the app.")
         st.stop()
 

@@ -5,11 +5,15 @@ WORKDIR /app
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy application code and model
+
+
+# Copy application code
 COPY src/ ./src/
-COPY models/ ./models/
+
+# Create models directory (will be populated by downloading cmodel.pkl)
+RUN mkdir -p models
 
 # Expose the dynamic port provided by Render
 EXPOSE $PORT
