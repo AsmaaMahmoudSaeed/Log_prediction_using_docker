@@ -1,3 +1,14 @@
+[![Python](https://img.shields.io/badge/Python-v3.11.13-3776AB?style=plastic&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-image-2496ED?style=plastic&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-v1.45.1-FF4B4B?style=plastic&logo=streamlit&logoColor=white)](https://docs.streamlit.io/)
+[![joblib](https://img.shields.io/badge/joblib-v1.5.1-9C27B0?style=plastic)](https://joblib.readthedocs.io/)
+[![NumPy](https://img.shields.io/badge/NumPy-v2.2.3-013243?style=plastic&logo=numpy&logoColor=white)](https://numpy.org/)
+[![pandas](https://img.shields.io/badge/pandas-v2.2.3-150458?style=plastic&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-v1.7.1-F7931E?style=plastic&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/stable/)
+[![gdown](https://img.shields.io/badge/gdown-v5.2.0-4CAF50?style=plastic)](https://github.com/wkentaro/gdown)
+
+
+
 Well Log DT Prediction App
 Overview
 This is a Streamlit-based web application that predicts the sonic log (DT) value based on well log measurements: Density (RHOB), Gamma Ray (GR), Neutron Porosity (NPHI), and Photoelectric Factor (PEF). The app uses a pre-trained machine learning model (cmodel.pkl) and is deployed using Docker on Render’s free tier.
@@ -9,16 +20,20 @@ Error Handling: Robust validation and logging for user inputs and model operatio
 Docker Deployment: Configured for easy deployment on Render using Gunicorn and Uvicorn.
 
 Project Structure
-well-log-app/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # Streamlit UI and app logic
-│   ├── model.py             # Model loading and prediction logic
-├── models/
-│   ├── cmodel.pkl           # Pre-trained machine learning model
-├── requirements.txt          # Python dependencies
-├── Dockerfile               # Docker configuration for Render
-├── README.md                # Project documentation
+###  well-log-app/
+#### ├── src/
+#### │------------├── __init__.py
+#### │------------├── main.py              # Streamlit UI and app logic
+#### │------------├── model.py             # Model loading and prediction logic
+#### ├── models/
+#### │------------├── cmodel.pkl           # Pre-trained machine learning model
+#### ├── notebooks/
+#### │------------├── Prediction of Continuous Well Logs.ipynb  
+#### ├── input/
+#### │------------├──volve_wells.csv       #dataset  
+#### ├── requirements.txt                  # Python dependencies
+#### ├── Dockerfile                        # Docker configuration for Render
+#### ├── README.md                         # Project documentation
 
 Prerequisites
 
