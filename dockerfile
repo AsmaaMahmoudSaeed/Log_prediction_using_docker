@@ -16,7 +16,6 @@ COPY src/ ./src/
 RUN mkdir -p models
 
 # Expose the dynamic port provided by Render
-EXPOSE $PORT
-
+EXPOSE 8501
 # Run the Streamlit app with Gunicorn and Uvicorn workers
-CMD ["gunicorn", "--worker-class=uvicorn.workers.UvicornWorker", "--workers=2", "--bind=0.0.0.0:$PORT", "--timeout=120", "src.main:main"]
+CMD streamlit run src/main.py 

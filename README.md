@@ -93,6 +93,16 @@ Model Loading Errors: Ensure cmodel.pkl is in the models/ directory and compatib
 Deployment Failures: Check Render logs for issues like missing dependencies or memory limits.
 Performance Issues: Optimize cmodel.pkl size if it exceeds 100 MB to fit within free tier constraints.
 
+## image link 
+https://hub.docker.com/repository/docker/asmaamahmoudsaeed/log-app/general
+
+## docker 
+docker run -p 8501:8501 -e PORT=8501 log-app:v3
+
+
+
+
+
 Contributing
 
 Fork the repository.
