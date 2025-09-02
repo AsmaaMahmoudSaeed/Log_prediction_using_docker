@@ -49,17 +49,20 @@ Git: For version control
 ###  Installation
 
 Clone the Repository:
+  ```
 git clone https://github.com/your-username/well-log-app.git
 cd well-log-app
-
+  ```
 
 Install Dependencies:
+  ```
 pip install -r requirements.txt
-
+  ```
 
 Run Locally:
-streamlit run app/main.py
-
+  ```
+streamlit run src/main.py
+  ```
 Access the app at http://localhost:8501.
 
 Troubleshooting
@@ -72,12 +75,14 @@ Performance Issues: Optimize cmodel.pkl size if it exceeds 100 MB to fit within 
 Pull the Docker Image
 
 You can pull the latest version of the image directly from Docker Hub:
-
+  ```
 docker pull asmaamahmoudsaeed/log-app:v3
+  ```
 Run the Container
 Run the app locally by mapping port 8501 (default for Streamlit):
-
+  ```
 docker run -p 8501:8501 -e PORT=8501 asmaamahmoudsaeed/log-app:v3
+  ```
 
 
 ### Contributing
