@@ -13,12 +13,16 @@
 Overview
 This is a Streamlit-based web application that predicts the sonic log (DT) value based on well log measurements: Density (RHOB), Gamma Ray (GR), Neutron Porosity (NPHI), and Photoelectric Factor (PEF). The app uses a pre-trained machine learning model (cmodel.pkl) and is deployed using Docker .
 
+###  live demo 
+https://logpredictionwebapp2-qs3gkpoatwjppsfqxfwcdl.streamlit.app/
+
 ### Features
 
 Interactive UI: Input well log parameters via a Streamlit form and get instant DT predictions.
 Modular Design: Code is organized into separate modules for UI (app/main.py) and model logic (app/model.py).
 Error Handling: Robust validation and logging for user inputs and model operations.
 Docker Deployment: Configured for easy deployment on Render using Gunicorn and Uvicorn.
+
 
 ### Project Structure
 ###  well-log-app/
@@ -64,7 +68,7 @@ Model Loading Errors: Ensure cmodel.pkl is in the models/ directory and compatib
 Deployment Failures: Check Render logs for issues like missing dependencies or memory limits.
 Performance Issues: Optimize cmodel.pkl size if it exceeds 100 MB to fit within free tier constraints.
 
-## Run the App with Docker
+### Run the App with Docker
 Pull the Docker Image
 
 You can pull the latest version of the image directly from Docker Hub:
@@ -76,7 +80,7 @@ Run the app locally by mapping port 8501 (default for Streamlit):
 docker run -p 8501:8501 -e PORT=8501 asmaamahmoudsaeed/log-app:v3
 
 
-Contributing
+### Contributing
 
 Fork the repository.
 Create a feature branch (git checkout -b feature/your-feature).
@@ -84,5 +88,5 @@ Commit changes (git commit -m "Add your feature").
 Push to the branch (git push origin feature/your-feature).
 Open a pull request.
 
-License
+### License
 MIT License
