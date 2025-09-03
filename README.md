@@ -10,7 +10,7 @@
 
 
 ### Well Log DT Prediction App
-Overview
+Overview\
 This is a Streamlit-based web application that predicts the sonic log (DT) value based on well log measurements: Density (RHOB), Gamma Ray (GR), Neutron Porosity (NPHI), and Photoelectric Factor (PEF). The app uses a pre-trained machine learning model (cmodel.pkl) and is deployed using Docker .
 
 ###  live demo 
